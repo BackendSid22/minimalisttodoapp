@@ -8,6 +8,7 @@ def add_todo():
     todo = st.session_state["new_todo"] + "\n"
     todos.append(todo)
     functions.write_todos(todos)
+    st.session_state["new_todo"] = ""
 
 
 st.title("My Todo App")
@@ -15,7 +16,6 @@ st.subheader("This is my todo app.")
 st.write("This app is to help you enhance your productivity")
 
 for index, todo in enumerate(todos):
-    st.checkbox(todo)
     checkbox = st.checkbox(todo, key=todo)
     if checkbox:
         todos.pop(index)
@@ -26,4 +26,5 @@ for index, todo in enumerate(todos):
 st.text_input(label="Enter a todo:", placeholder="Add new todo...",
               label_visibility="hidden", on_change=add_todo, key='new_todo')
 
-
+if st.button("Add Todo"):
+    add_todo()
